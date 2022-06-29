@@ -1,10 +1,21 @@
 {% extends "base.html.twig" %}
 
-{% block title %}EmploieUs - Acceuil
-    
+{% block title %}
+	EmploieUs - Acceuil
 {% endblock %}
+
 
 {% block body %}
-    <h1>Titre</h1>
+	<div class="container mt-4">
+		<div class="jumbotron">
+			<h1 class="display-4">Bienvenue sur EmploieUS</h1>
+			<p class="lead">Ce site web permet aux candidats demandeur d'emploie ou de stage de mettre en ligne leurs CV et leur demande afin que les entreprises puissent les consulter pour éventuellement les contacter par la suite.</p>
+			<hr class="my-4">
+			<p>Vous être candidats ?</p>
+			<p class="lead">
+				<a class="btn btn-primary btn-lg" href="#" role="button">Inscription</a>
+				<a class="btn btn-primary btn-lg" href="#" role="button">Connexion</a>
+			</p>
+		</div>
+	</div>
 {% endblock %}
-
