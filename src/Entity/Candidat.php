@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CandidatRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Validator\Constraints as Assert;
@@ -28,7 +30,7 @@ class Candidat
     #[ORM\Column(type: 'string', length: 15)]
     private $genre;
 
-    #[ORM\Column(type: 'string', length: 30)]
+    #[ORM\Column(type: 'Datetime', length: 30)]
     private $datenaissance;
 
     #[ORM\Column(type: 'string', length: 50)]
@@ -49,6 +51,17 @@ class Candidat
 
     #[ORM\Column(type: 'string', length: 255)]
     private $cv;
+
+    #[ORM\OneToOne(targetEntity: Annonce::class, cascade: ['persist', 'remove'])]
+    private $annonce;
+
+    #[ORM\OneToMany(mappedBy: 'candidat', targetEntity: Message::class)]
+    private $message;
+
+    public function __construct()
+    {
+        $this->message = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -91,12 +104,12 @@ class Candidat
         return $this;
     }
 
-    public function getDatenaissance(): ?string
+    public function getDatenaissance(): ?Datetime 
     {
         return $this->datenaissance;
     }
 
-    public function setDatenaissance(string $datenaissance): self
+    public function setDatenaissance(Datetime $datenaissance): self
     {
         $this->datenaissance = $datenaissance;
 
@@ -159,6 +172,48 @@ class Candidat
     public function setCv(string $cv): self
     {
         $this->cv = $cv;
+
+        return $this;
+    }
+
+    public function getAnnonce(): ?Annonce
+    {
+        return $this->annonce;
+    }
+
+    public function setAnnonce(?Annonce $annonce): self
+    {
+        $this->annonce = $annonce;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessage(): Collection
+    {
+        return $this->message;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->message->contains($message)) {
+            $this->message[] = $message;
+            $message->setCandidat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->message->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getCandidat() === $this) {
+                $message->setCandidat(null);
+            }
+        }
 
         return $this;
     }

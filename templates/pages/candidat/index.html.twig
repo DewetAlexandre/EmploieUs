@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EmploieUs - Candidat{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Les candidats : </h1>
+
+        {% for candidat in candidats %}
+            <div>
+                <p>{{candidat.motdepasse}}</p>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
