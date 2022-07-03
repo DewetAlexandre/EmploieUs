@@ -38,4 +38,11 @@ class CandidatController extends AbstractController
         return $this->render('pages/candidat/new.html.twig',[
         'form' => $form->createView()]);
     }
+    /*
+    #[Route('/pages/candidat','new.html.twig', methods:['GET', 'POST'])]
+    public function new(): Response
+    {
+        return $this->render('pages/candidat/new.html.twig');
+    }
+    */
 }

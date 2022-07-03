@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -76,10 +77,6 @@ class CandidatType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
-                'constraints' => [
-                new Assert\Length(['min' => 2, 'max' => 80]),
-                new Assert\NotBlank()
-                ],
                 'widget' => 'choice'
             ])
             ->add('adresse', TextType::class, [
@@ -112,20 +109,25 @@ class CandidatType extends AbstractType
                 new Assert\NotBlank()
                 ]
             ])
-            ->add('motdepasse', PasswordType::class, [
-                'attr' => [
-                    'class'=> 'form-control',
-                    'minlength' => '2',
-                    'maxlength' => '50'
-                ],
-                'label' => 'Mot de passe',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],
-                'constraints' => [
-                new Assert\Length(['min' => 2, 'max' => 80]),
-                new Assert\NotBlank()
-                ]
+            ->add('motdepasse', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options' => [
+                    'label' => 'Mot de passe',
+                    'attr' => [
+                        'class'=> 'form-control',
+                        'minlength' => '2',
+                        'maxlength' => '50',
+                ]],
+                'second_options' => [
+                    'label' => 'Confirmation du mot de passe',
+                    'attr' => [
+                        'class'=> 'form-control',
+                        'minlength' => '2',
+                        'maxlength' => '50',
+                ]],
+                    
+                'invalid_message' => 'Les mots de passe ne correspondent pas.'
+                
             ])
             ->add('tel', TelType::class, [
                 'attr' => [
@@ -145,15 +147,12 @@ class CandidatType extends AbstractType
             ->add('cv', FileType::class, [
                 'attr' => [
                     'class'=> 'form-control',
-                    'minlength' => '2',
-                    'maxlength' => '50'
                 ],
                 'label' => 'CV',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
                 'constraints' => [
-                new Assert\Length(['min' => 2, 'max' => 80]),
                 new Assert\NotBlank()
                 ]
             ])

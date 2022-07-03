@@ -30,7 +30,7 @@ class AppFixtures extends Fixture
             $candidat->setNom($this->faker->lastName())
                 ->setPrenom($this->faker->firstName())
                 ->setGenre($this->faker->numberBetween(0,2))
-                ->setDatenaissance($this->faker->date())
+                ->setDatenaissance($this->faker->datetime('Y-m-d'))
                 ->setAdresse($this->faker->address())
                 ->setMail($this->faker->safeEmail())
                 ->setMotdepasse($this->faker->password())

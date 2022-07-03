@@ -30,7 +30,8 @@ class Candidat
     #[ORM\Column(type: 'string', length: 15)]
     private $genre;
 
-    #[ORM\Column(type: 'Datetime', length: 30)]
+    #[ORM\Column(type:'datetime')]
+    #[Assert\DateTime()]
     private $datenaissance;
 
     #[ORM\Column(type: 'string', length: 50)]
@@ -104,12 +105,12 @@ class Candidat
         return $this;
     }
 
-    public function getDatenaissance(): ?Datetime 
+    public function getDatenaissance(): ?datetime 
     {
         return $this->datenaissance;
     }
 
-    public function setDatenaissance(Datetime $datenaissance): self
+    public function setDatenaissance(datetime $datenaissance): self
     {
         $this->datenaissance = $datenaissance;
 

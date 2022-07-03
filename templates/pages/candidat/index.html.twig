@@ -8,7 +8,7 @@
 
         {% for candidat in candidats %}
             <div>
-                <p>{{candidat.motdepasse}}</p>
+                <p>{{candidat.nom}}{{' - '}}{{candidat.prenom}}{{' - '}}{{candidat.adresse}}{{' - '}}{{candidat.mail}}</p>
             </div>
         {% endfor %}
 
